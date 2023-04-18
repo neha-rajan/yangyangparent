@@ -13,21 +13,6 @@ export default TaskItem = (props) => {
         </View>
     );
 }
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, } from "react-native";
-
-export default TaskItem = (props) => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.indexContainer}>
-                <Text style={styles.index}>{props.index}</Text>
-            </View>
-            <View style={styles.taskContainer}>
-                <Text style={styles.task}>{props.task}</Text>
-            </View>
-        </View>
-    );
-}
 
 const styles = StyleSheet.create({
     container: {

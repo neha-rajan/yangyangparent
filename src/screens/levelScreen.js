@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import { ImageBackground, Keyboard, ScrollView, StyleSheet, Text, View, Image, TouchableHighlight, Button} from 'react-native';
 import TaskInputField from '../components/TaskInputField';
 import TaskItem from '../components/TaskItem';
-import  { AddTaskScreen }  from "./AddTaskScreen";
-import  { tasks }  from "./AddTaskScreen";
+import  { addTaskScreen }  from "./addTaskScreen";
 import { useRoute } from '@react-navigation/native';
 
 
@@ -31,7 +30,7 @@ export function levelScreen({navigation}) {
         <Button style={styles.button}
           title="Add Tasks"
           onPress={() => 
-            navigation.navigate("AddTaskScreen")
+            navigation.navigate(addTaskScreen)
           }
         />
         <ScrollView style={styles.scrollView}>

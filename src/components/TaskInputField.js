@@ -1,8 +1,33 @@
+import React, {useState} from 'react';
+import { KeyboardAvoidingView, StyleSheet, View, TextInput, TouchableOpacity, } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons'; 
 
+export default TaskInputField = (props) => {
+    const [task, setTask] = useState();
+
+    const handleAddTask = (value) => {
+        props.addTask(value);
+        setTask(null);
+    }
+
+    return (
+        <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <TextInput style={styles.inputField} value={task} onChangeText={text => setTask(text)} placeholder={'What does Khine have to do today?'} placeholderTextColor={'#000000'}/>
+        <TouchableOpacity onPress={() => handleAddTask(task)}>
+          <View style={styles.button}>
+              <MaterialIcons name="keyboard-arrow-up" size={24} color="black" />
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    );
+}
 const styles = StyleSheet.create({
     container: {
-        borderColor: '#000000',
-        backgroundColor: '#39FF14',
+        borderColor: '#fff',
+        backgroundColor: '#00008B',
         borderWidth: 1,
         marginHorizontal: 20,
         borderRadius: 12,
@@ -15,7 +40,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     inputField: {
-        color: '#000000',
+        color: '#fff',
         height: 50,
         flex: 1,
     },

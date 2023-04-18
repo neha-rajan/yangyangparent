@@ -14,7 +14,6 @@ export function addTaskScreen({navigation}) {
     Keyboard.dismiss();
   }
 
-
 /*
   const deleteTask = (deleteIndex) => {
     setTasks(tasks.filter((value, index) => index != deleteIndex));
