@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     justifyContent:"flex-start",
-    color: '#2699FB',
+    color: '#000000',
     fontSize: 30,
     fontWeight: '600',
     marginBottom: 10,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    color: '#2699FB',
+    color: '#000000',
     fontSize: 30,
     fontWeight: '600',
     margin: 10  }
