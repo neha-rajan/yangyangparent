@@ -1,44 +1,42 @@
 import React, {useState} from 'react';
-import { ImageBackground, Keyboard, ScrollView, StyleSheet, Text, View, Image, TouchableHighlight, Button} from 'react-native';
-import TaskInputField from '../components/TaskInputField';
+import {ScrollView, StyleSheet, Text, View, Button} from 'react-native';
 import TaskItem from '../components/TaskItem';
-import  { addTaskScreen }  from "./addTaskScreen";
 import { useRoute } from '@react-navigation/native';
 
 
-export function levelScreen({navigation}) {
-    const [tasks, setTasks] = useState([]);
-    const levelScreen = () => {
-    const route = useRoute;
-    return (
-      <View style={styles.container}>
-        <Text style={styles.taskContainer}>{route.params.task}</Text>
-      </View>
-    );
-}
+export function LevelScreen({route, navigation}) {
+
+    const [tasks, setTasks] = useState(route.params.taskList);
+    // const levelScreen = () => {
+    //   const route = useRoute;
+    //   return (
+    //     <View style={styles.container}>
+    //       <Text style={styles.taskContainer}>{route.params.task}</Text>
+    //     </View>
+    //   );
+    // }
     
-  
-  /*
+
     const deleteTask = (deleteIndex) => {
       setTasks(tasks.filter((value, index) => index != deleteIndex));
     }
-    */
   
     return (
       <View style={styles.container}>
         <Text style={styles.heading}> Khine's Level: 2 </Text>
         <Button style={styles.button}
           title="Add Tasks"
-          onPress={() => 
-            navigation.navigate(addTaskScreen)
-          }
+          color= '#f05e16'
+          onPress={() => {
+            navigation.goBack()
+          }}
         />
         <ScrollView style={styles.scrollView}>
           {
           tasks.map((task, index) => {
             return (
               <View key={index} style={styles.taskContainer}>
-                <TaskItem index={index + 1} task={task}/>
+                <TaskItem index={index + 1} task={task} deleteTask={() => deleteTask(index)}/>
               </View>
             );
           })
@@ -52,6 +50,8 @@ export function levelScreen({navigation}) {
   
   const styles = StyleSheet.create({
     container: {
+      padding: 10,
+      paddingTop: 50,
       flex: 1,
       backgroundColor: '#fffcfc',
     },

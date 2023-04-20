@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 export default TaskItem = (props) => {
     return (
@@ -9,6 +10,9 @@ export default TaskItem = (props) => {
             </View>
             <View style={styles.taskContainer}>
                 <Text style={styles.task}>{props.task}</Text>
+                <TouchableOpacity onPress={() => props.deleteTask()}>
+                    <MaterialIcons style={styles.delete} name="delete" size={18} color='#fff' />
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -20,7 +24,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
     },
     indexContainer: {
-        backgroundColor: '#39FF14',
+        backgroundColor: '#B7AC44',
         borderRadius: 12,
         marginRight: 10,
         alignItems: 'center',
@@ -29,11 +33,11 @@ const styles = StyleSheet.create({
         height: 50,
     },
     index: {
-        color: '#000000',
+        color: '#fff',
         fontSize: 20,
     },
     taskContainer: {
-        backgroundColor: '#39FF14',
+        backgroundColor: '#B7AC44',
         borderRadius: 12,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
         minHeight: 50,
     },
     task: {
-        color: '#000000',
+        color: '#fff',
         width: '90%',
         fontSize: 16,
     },

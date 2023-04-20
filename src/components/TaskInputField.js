@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, View, TextInput, TouchableOpacity, } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons'; 
 
 export default TaskInputField = (props) => {
@@ -12,9 +12,9 @@ export default TaskInputField = (props) => {
 
     return (
         <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.container}
+        >
         <TextInput style={styles.inputField} value={task} onChangeText={text => setTask(text)} placeholder={'What does Khine have to do today?'} placeholderTextColor={'#000000'}/>
         <TouchableOpacity onPress={() => handleAddTask(task)}>
           <View style={styles.button}>
@@ -24,10 +24,11 @@ export default TaskInputField = (props) => {
       </KeyboardAvoidingView>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         borderColor: '#fff',
-        backgroundColor: '#00008B',
+        backgroundColor: '#f7be6d',
         borderWidth: 1,
         marginHorizontal: 20,
         borderRadius: 12,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     inputField: {
-        color: '#fff',
+        color: '#000',
         height: 50,
         flex: 1,
     },

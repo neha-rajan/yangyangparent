@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@types/react-router": "^5.1.20",
     "expo": "~48.0.10",
     "expo-status-bar": "~1.4.4",
     "native": "^0.3.3",
@@ -18,7 +19,8 @@
     "react-native": "0.71.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "prettier": "2.8.7"
   },
   "private": true
 }

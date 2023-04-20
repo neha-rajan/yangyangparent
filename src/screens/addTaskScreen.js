@@ -2,28 +2,24 @@ import React, {useState} from 'react';
 import { Keyboard, ScrollView, StyleSheet, Text, View, Image, TouchableHighlight, Button } from 'react-native';
 import TaskInputField from '../components/TaskInputField';
 import TaskItem from '../components/TaskItem';
-import  { levelScreen }  from "./levelScreen";
 
 
-export function addTaskScreen({navigation}) {
+export function AddTaskScreen({route, navigation}) {
+  console.log(route.param);
   const [tasks, setTasks] = useState([]);
-
   const addTask = (task) => {
     if (task == null) return;
     setTasks([...tasks, task]);
     Keyboard.dismiss();
   }
 
-/*
   const deleteTask = (deleteIndex) => {
     setTasks(tasks.filter((value, index) => index != deleteIndex));
   }
-  */
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}> Add Tasks </Text>
-      <TaskInputField addTask={addTask}/>
+      <Text style={styles.heading}> Added Tasks </Text>
       <ScrollView style={styles.scrollView}>
           {
           tasks.map((task, index) => {
@@ -34,19 +30,29 @@ export function addTaskScreen({navigation}) {
             );
           })
         }
-        </ScrollView>
+      </ScrollView>
+
+      <View> 
+        <TaskInputField style={styles.inputField} addTask={addTask}/>
+      </View>
       <Button style={styles.button}
         title="See Khine's Progress"
+        color= '#f05e16'
         onPress={() => 
-          navigation.navigate("levelScreen")
+          navigation.navigate("LevelScreen", {taskList: tasks})
         }
       />
     </View>
   );
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
+    padding: 10,
+    paddingTop: 50,
+    paddingBottom: 50,
     flex: 6,
     backgroundColor: '#fffcfc',
     justifyContent: 'space-between'
@@ -75,8 +81,8 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    color: '#000000',
     fontSize: 30,
     fontWeight: '600',
-    margin: 10  }
+    margin: 10
+  },
 });
