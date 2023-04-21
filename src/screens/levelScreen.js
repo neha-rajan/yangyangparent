@@ -1,29 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View, Button} from 'react-native';
 import TaskItem from '../components/TaskItem';
-import { useRoute } from '@react-navigation/native';
 
 
 export function LevelScreen({route, navigation}) {
 
+    console.log(route.params.taskList);
+
     const [tasks, setTasks] = useState(route.params.taskList);
-    // const levelScreen = () => {
-    //   const route = useRoute;
-    //   return (
-    //     <View style={styles.container}>
-    //       <Text style={styles.taskContainer}>{route.params.task}</Text>
-    //     </View>
-    //   );
-    // }
-    
 
     const deleteTask = (deleteIndex) => {
       setTasks(tasks.filter((value, index) => index != deleteIndex));
     }
+
+    const [childLevel, setChildLevel] = useState("-"); 
+
+    const MINUTE_MS = 1000; 
+
+    useEffect(() => {
+
+      const interval = setInterval(() => {
+        console.log('Checks level every second');
+        fetch("https://virtual-pet-c74k.onrender.com/level")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setChildLevel(result.level)
+          }
+        )
+      }, MINUTE_MS);
+
+      return () => clearInterval(interval);
+
+    }, []);
   
     return (
       <View style={styles.container}>
-        <Text style={styles.heading}> Khine's Level: 2 </Text>
+        <Text style={styles.heading}> Khine's Level: {childLevel} </Text>
         <Button style={styles.button}
           title="Add Tasks"
           color= '#f05e16'
@@ -36,7 +49,7 @@ export function LevelScreen({route, navigation}) {
           tasks.map((task, index) => {
             return (
               <View key={index} style={styles.taskContainer}>
-                <TaskItem index={index + 1} task={task} deleteTask={() => deleteTask(index)}/>
+                <TaskItem index={index + 1} task={task.title} deleteTask={() => deleteTask(index)}/>
               </View>
             );
           })

@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         position: 'absolute',
         bottom: 20,
-        marginBottom: 10
+        marginLeft: 40,
+        margin: 100
     },
     inputField: {
         color: '#000',

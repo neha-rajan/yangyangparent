@@ -1,20 +1,72 @@
-import React, {useState} from 'react';
-import { Keyboard, ScrollView, StyleSheet, Text, View, Image, TouchableHighlight, Button } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { Keyboard, ScrollView, StyleSheet, Text, View, KeyboardAvoidingView, Button } from 'react-native';
 import TaskInputField from '../components/TaskInputField';
 import TaskItem from '../components/TaskItem';
 
 
-export function AddTaskScreen({route, navigation}) {
-  console.log(route.param);
+export function AddTaskScreen({navigation}) {
   const [tasks, setTasks] = useState([]);
-  const addTask = (task) => {
-    if (task == null) return;
-    setTasks([...tasks, task]);
+  const addTask = (title) => {
+    if (title == null) return;
+
+    // add task to the backend
+    fetch(`https://virtual-pet-c74k.onrender.com/add-task?task=${title}`, {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "id": 78912 })
+    })
+    .then(response => response.json())
+    .then(
+        (response) => {
+          task = {id: response.id, title: title}
+          setTasks([...tasks, task]);
+
+          console.log(tasks);
+        }
+      )
+
     Keyboard.dismiss();
   }
 
-  const deleteTask = (deleteIndex) => {
+  useEffect(() => {
+    fetch("https://virtual-pet-c74k.onrender.com/tasks")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result.tasks); 
+            let existingTasks = 
+            setTasks(result.tasks);
+          }
+        )
+  }, []);
+
+  const deleteTask = async (deleteIndex) => {
     setTasks(tasks.filter((value, index) => index != deleteIndex));
+    console.log(deleteIndex);
+    await fetch(`https://virtual-pet-c74k.onrender.com/delete-task/${deleteIndex}`, {
+      method: 'DELETE',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "id": 78912 })
+    })
+
+    updateTaskList();
+  }
+
+  const updateTaskList = () => {
+    fetch("https://virtual-pet-c74k.onrender.com/tasks")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result.tasks); 
+            setTasks(result.tasks);
+          }
+        )
   }
 
   return (
@@ -24,17 +76,14 @@ export function AddTaskScreen({route, navigation}) {
           {
           tasks.map((task, index) => {
             return (
-              <View key={index} style={styles.taskContainer}>
-                <TaskItem index={index + 1} task={task} deleteTask={() => deleteTask(index)}/>
+              <View key={task.id} style={styles.taskContainer}>
+                <TaskItem index={index + 1} task={task.title} deleteTask={() => deleteTask(task.id)}/>
               </View>
             );
           })
         }
       </ScrollView>
-
-      <View> 
-        <TaskInputField style={styles.inputField} addTask={addTask}/>
-      </View>
+      <TaskInputField style={styles.inputField} addTask={addTask}/>
       <Button style={styles.button}
         title="See Khine's Progress"
         color= '#f05e16'
