@@ -5,9 +5,7 @@ import TaskItem from '../components/TaskItem';
 
 export function LevelScreen({route, navigation}) {
 
-    console.log(route.params.taskList);
-
-    const [tasks, setTasks] = useState(route.params.taskList);
+    const [tasks, setTasks] = useState([]);
 
     const deleteTask = (deleteIndex) => {
       setTasks(tasks.filter((value, index) => index != deleteIndex));
@@ -26,6 +24,16 @@ export function LevelScreen({route, navigation}) {
         .then(
           (result) => {
             setChildLevel(result.level)
+          }
+        )
+
+        fetch("https://virtual-pet-c74k.onrender.com/tasks")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result.tasks); 
+            let existingTasks = 
+            setTasks(result.tasks);
           }
         )
       }, MINUTE_MS);
